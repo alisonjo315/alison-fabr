@@ -1,0 +1,14 @@
+{% set has_teaser = false %}
+{% set strip_tease = {} %}
+{% if node.field_teaser.value -%}
+  {% set has_teaser = true %}
+  {% set str_tease = node.field_teaser.value|striptags("<strong><em><a><sup><sub>") %}
+  {%- set strip_tease = {
+    '#type':   'processed_text',
+    '#text':    str_tease,
+    '#format':  node.field_teaser.format,
+  } -%}
+{%- endif %}
+{% if has_teaser %}
+  <div class="summary">{{- strip_tease -}}</div>
+{% endif %}

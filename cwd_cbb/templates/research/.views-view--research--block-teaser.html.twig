@@ -1,0 +1,11 @@
+{#
+/**
+ * Add to the view wrapper classes
+ * TO DO: remove this template
+ */
+#}
+
+{% set view_add_classes = ['cwd-research','tiles','max-4'] %}
+{% include "@cwd_base/views-view.html.twig" with {
+  'view_add_classes': view_add_classes,
+} %}

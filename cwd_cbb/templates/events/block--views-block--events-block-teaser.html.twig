@@ -1,0 +1,12 @@
+{#
+/**
+ * Render block with custom "more" button
+ */
+#}
+
+{% set more_link = '/about/events' %}
+{% set more_label = 'All events' %}
+{% include "@cwd_cbb/overrides/_block--with-button.html.twig" with {
+  'set_more_link': more_link,
+  'set_more_label': more_label,
+} %}

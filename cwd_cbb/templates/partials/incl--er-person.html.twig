@@ -1,0 +1,11 @@
+{% if node.field_er_person.value -%}
+	{% set members_heading = members_heading_text|default('Group Members') %}
+  <hr class="invisible">
+  <h2>{{ members_heading }}</h2>
+  <ul class="custom group-members">
+    {% for gm in node.field_er_person %}
+      {%- set gm_url = path('entity.node.canonical', {'node': gm.entity.nid.value}) -%}
+      <li>{{ drupal_link(gm.entity.title.value|t, gm_url) }}</li>
+    {% endfor -%}
+  </ul>
+{% endif %}

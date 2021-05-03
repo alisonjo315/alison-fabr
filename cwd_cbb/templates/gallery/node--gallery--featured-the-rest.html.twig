@@ -1,0 +1,23 @@
+{% extends "node.html.twig" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+  <div class="card">
+    <div class="group-image">
+      <a href="{{ url }}">
+        <div class="relative">
+          {% set image_src = '/themes/custom/cwd_base/images/cwd_utilities/photo_placeholder_square.svg' %}
+          {% if node.field_gallery_media.value and node.field_gallery_media[0].entity.bundle[0].target_id == 'gallery_image' -%}
+            {# Use first value in gallery media field, unless it's a video... #}
+            {% set image_src = file_url(node.field_gallery_media[0].entity.field_media_image.entity.uri.value | image_style('featured_content')) %}
+          {%- endif %}
+          <img src="{{- image_src -}}" alt="">
+
+          {% include "@cwd_cbb/partials/incl--fc-badge.html.twig" %}
+        </div>
+        {% include "@cwd_cbb/partials/incl--title.html.twig" %}
+      </a>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "node.html.twig" %}
+{% block title -%}{% endblock %}
+
+{% block content -%}
+  {% set destination_url = url %}
+  {%- if node.field_destination_url.value -%}
+    {% set destination_url = node.field_destination_url.0.url %}
+  {%- endif -%}
+  {% set event_date_start = content.field_event_date.0['#text'] %}
+  {% set has_end_date = false %}
+  {% set event_date_end = '' %}
+  {% if node.field_event_date_end.0.value -%}
+    {% set has_end_date = true %}
+    {% set event_date_end = content.field_event_date_end.0['#text'] %}
+  {%- endif %}
+  {# TO DO: redo event time string in .theme file, like you know you're dying to #}
+  {% set event_time_string = event_date_start|date('g:ia') %}
+  {% if has_end_date -%}
+    {% set event_time_string = event_time_string ~ ' - ' ~ event_date_end|date('g:ia') %}
+  {%- endif %}
+
+  <div class="group-noimage">
+    <a href="{{ destination_url }}">
+      {% include "@cwd_cbb/partials/incl--title.html.twig" %}
+      <time title="{{ event_date_start|date( 'F jS') }}, {{ event_time_string }}" datetime='{{ event_date_start }}'>
+        <span class="month">{{ event_date_start|date('M') }}</span>
+        <span class="day">{{ event_date_start|date('d') }}</span>
+        <span class="time">{{ event_time_string }}</span>
+      </time>
+    </a>
+  </div>
+
+{% endblock %}

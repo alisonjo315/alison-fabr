@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Theme override for node body field, full view mode (any ctype).
+ * ~ add div.field-body.double-margin
+ * TO DO: should this template be added to cwd_base, alongside field--node--body that's already there?
+ *
+ * @see field.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="field-body double-margin">
+  {% include "@cwd_base/includes/_field--un-wrapped.html.twig" %}
+</div>

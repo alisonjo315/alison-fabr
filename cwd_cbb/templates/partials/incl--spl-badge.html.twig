@@ -1,0 +1,3 @@
+{% if node.field_spotlight_category.value -%}
+  <div class="badge category">{{- node.field_spotlight_category[0].entity.name.value -}}</div>
+{% endif %}

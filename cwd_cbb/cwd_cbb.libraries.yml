@@ -1,0 +1,11 @@
+global-styling:
+  css:
+    theme:
+      css/cbb.css: {}
+  js:
+    js/cbb.js: {}
+
+typekit:
+  css:
+    theme:
+      https://use.typekit.net/ljs6out.css: {}

@@ -1,0 +1,25 @@
+{% extends "node.html.twig" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+  <div class="card">
+    <div class="group-image">
+      <a href="{{ url }}">
+        <div class="relative">
+          {% include "@cwd_cbb/partials/incl--fc-image.html.twig" %}
+          {% include "@cwd_cbb/partials/incl--fc-badge.html.twig" %}
+        </div>
+        {% include "@cwd_cbb/partials/incl--title.html.twig" %}
+      </a>
+    </div>
+    <div class="group-fields">
+      {% if node.field_theme.value -%}
+        <div class="date supplemental-utility">
+          {{- node.field_theme[0].entity.name.value -}}
+        </div>
+      {% endif %}
+      {% include "@cwd_cbb/partials/incl--teaser.html.twig" %}
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+core: 8.x
+type: theme
+base theme: cwd_base
+
+name: 'Center for Bright Beams theme'
+description: 'Child to the CWD Cornell Base theme'
+package: 'Cornell CWD'
+
+regions:
+  nav_main: 'Main navigation'
+  nav_utility: 'Utility navigation'
+  nav_breadcrumb: 'Breadcrumb navigation'
+  content_header: 'Content header'
+  content: 'Content'
+  content_footer: 'Content footer'
+  sidebar_primary: 'Primary sidebar (top)'
+  sidebar_secondary: 'Secondary sidebar (bottom)'
+  supplementary: 'Supplementary region 1'
+  supplementary2: 'Supplementary region 2'
+  footer_primary: 'Primary footer region'
+  footer_secondary: 'Secondary footer region'
+  subfooter: 'Subfooter'
+
+libraries:
+  - 'cwd_cbb/global-styling'
+  - 'cwd_cbb/typekit'
+#ckeditor_stylesheets:
+#  - 'css/ckeditor/ckeditor.css'

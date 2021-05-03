@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Theme override for field_teaser (any etype/bundle/view mode).
+ * ~ add div.summary
+ * TO DO: maybe ditch this template b/c using incl--teaser.html.twig...
+ *
+ * @see field.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="summary">
+  {% include "@cwd_base/includes/_field--un-wrapped.html.twig" %}
+</div>

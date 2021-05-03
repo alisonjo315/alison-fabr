@@ -1,0 +1,40 @@
+{% set super_header_attr = create_attribute() %}
+{% set banner_url = '' %}
+{% if has_custom_banner -%} {# variable comes in from html.html.twig #}
+  {% set banner_url = file_url(node.field_banner_image[0].entity.field_media_image.entity.uri.value | image_style('page_banner_image')) %}
+{% endif -%}
+{% if banner_url != '' -%}
+  {% set super_header_attr = super_header_attr.setAttribute('style', 'background-image: url(' ~ banner_url ~ ')') %}
+{% endif -%}
+
+<div class="band" id="super-header"{{ super_header_attr }}>
+  {% include "@cwd_cbb/partials/cu-search.html.twig" %}
+  <header id="cu-header" aria-label="Site banner">
+    <div class="cu45-helper"></div>
+    <div class="container-fluid cu-brand">
+      <h1><a href="{{ base_path }}"><img src="{{ base_path ~ directory }}/images/cbb/cbb_banner_full_white960.png" width="960" height="148" alt="The Center for Bright Beams, A National Science Foundation Science and Technology Center"></a></h1>
+      <div class="buttons">
+        <button class="mobile-button" id="mobile-nav">Main Menu</button>
+        <button class="mobile-button" id="cu-search-button">Toggle Search Form</button>
+        {{ page.nav_utility }}
+      </div>
+    </div>
+  </header>
+
+  <header id="site-header" aria-label="Site navigation">
+    {{ page.nav_main }}
+  </header>
+
+  {% if has_banner_message -%}
+  <div class="container-fluid">
+    <section class="banner-message" aria-label="Banner Message">
+      <h2 id="banner-headline">{{ node.field_banner_image[0].entity.field_simple_text.value }}</h2>
+      {% if node.field_banner_image[0].entity.field_link.value -%}
+        {% set banner_linkurl = node.field_banner_image[0].entity.field_link.0.url %}
+        {% set banner_linktext = node.field_banner_image[0].entity.field_link.0.title %}
+        {{ link(banner_linktext, banner_linkurl, {id: 'banner-link', class: 'link-button', 'aria-labelledby': 'banner-link banner-headline'}) }}
+      {% endif -%}
+    </section>
+  </div>
+  {% endif -%}
+</div>

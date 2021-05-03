@@ -1,0 +1,6 @@
+{% if node.field_image.0.value -%}
+  {% set image_mid = node.field_image.0.entity.mid.value %}
+  <figure class="high-margin">
+    {{ drupal_entity('media', image_mid, 'article_banner') }}
+  </figure>
+{% endif %}

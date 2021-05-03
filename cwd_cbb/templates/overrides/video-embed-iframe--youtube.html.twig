@@ -1,0 +1,11 @@
+{#
+/**
+ * @file
+ * Override video embed iframe template for YouTube video embeds.
+ * ~ Add title attribute, even just a static one, as an accessibility band-aid until we migrate from video_embed_field to core.
+ * 👉 Related CD Demo issue: https://github.com/CU-CommunityApps/CD-demo/issues/113
+ *
+ * See @video_embed_field/video-embed-iframe.html.twig for original version.
+ */
+#}
+<iframe{{ attributes }}{% if url is not empty %} src="{{ url }}{% if query is not empty %}?{{ query | url_encode }}{% endif %}{% if fragment is not empty %}#{{ fragment }}{% endif %}"{% endif %} title="YouTube video"></iframe>

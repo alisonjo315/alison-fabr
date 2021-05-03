@@ -1,0 +1,27 @@
+{% extends "node.html.twig" %}
+{% block content %}
+
+<div class="cwd-component cwd-basic cwd-research">
+
+  {% if node.field_theme.value or node.field_post_date.value -%}
+    <div class="metadata-set high-margin">
+      {% if node.field_theme.value -%}
+        <h2 class="sr-only">Research Theme</h2>
+        <div class="field research-theme">
+          {{- node.field_theme[0].entity.name.value -}}
+        </div>
+      {% endif %}
+      {% if node.field_post_date.value -%}
+        <div class="field date">Published {{ node.field_post_date.value|date('U')|format_date("news_date") }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+  <div class="high-margin">
+    {{ node.body|view('full') }}
+  </div>
+  {% include "@cwd_cbb/partials/incl--er-person.html.twig" with {
+    'members_heading_text': 'Associated CBB Members',
+  } %}
+
+</div>
+{% endblock %}

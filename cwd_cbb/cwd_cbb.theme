@@ -1,0 +1,84 @@
+<?php
+
+/*function cwd_cbb_preprocess_node(&$variables) {
+  if ($variables['node']->hasField('field_event_date')) {
+
+  }
+  cwd_base_is_front($variables); // make 'is_front' available to the node.html template
+}*/
+
+//(use stuff up above inside this thing down here...)
+
+/*
+      $field = $node->field_event_dates->first()->getIterator();
+      $field_start = $field['value']->getDateTime();
+      $field_end = $field['end_value']->getDateTime();
+​
+      $TZ = "America/Detroit";
+​
+      if ($variables['user']->isAuthenticated()) {
+        $TZ = $variables['user']->getTimeZone();
+      }
+​
+      $variables['event'] = [
+        'start_date' => $field_start->format('F j, Y', ['timezone' => $TZ]),
+        'end_date'  => $field_end->format('F j, Y', ['timezone' => $TZ]),
+        'start_time' => $field_start->format('g:i A', ['timezone' => $TZ]),
+        'end_time'  => $field_end->format('g:i A', ['timezone' => $TZ]),
+      ];
+*/
+
+/**
+ * The following function(s) are adding twig suggestions that are already provided
+ * by core but not presented in twig debug.
+ * TO DO: Remove if/when added to cwd_base.
+   -------------------------------------------------------------------------- */
+/**
+ * Implements hook_theme_suggestions_field_alter().
+ */
+function cwd_cbb_theme_suggestions_field_alter(&$suggestions, array $variables) {
+  $field = $variables['element'];
+  $sanitized_view_mode = strtr($field['#view_mode'], '.', '_');
+  // Add view mode theme suggestions.
+  $suggestions[] = 'field__' . $field['#entity_type'] . '__' . $field['#field_name'] . '__' . $field['#bundle'] . '__' . $sanitized_view_mode;
+  $suggestions[] = 'field__' . $field['#entity_type'] . '__' . $field['#field_name'] . '__' . $sanitized_view_mode;
+}
+
+/*function cwd_cbb_preprocess_node(&$variables) {
+  if ($variables['node']->hasField('field_event_date')) {
+    $variables['nodethings'] = $variables['node'];
+    $variables['helloworld'] = "hello world";
+  }
+  $settings = \Drupal::config('system.date')->getRawData();
+  // Default timezone (string)
+  $timezone = $settings['timezone']['default'];
+  // Can users set their TZ on this site? (boolean)
+  $allows_user_override = $settings['timezone']['user']['configurable'];
+  // If yes, reset timezone based on user's timezone.
+  if ($allows_user_override && $variables['user']->isAuthenticated()) {
+    $timezone = $variables['user']->getTimeZone();
+  }
+  $variables['mytimezone'] = $timezone;
+
+  if ($variables['node']->hasField('field_event_date')) {
+    //$field1 = $node->field_event_date->first()->getIterator();
+    //$start_time = $field1['value']->getDateTime();
+    //$field_end = $field['end_value']->getDateTime();
+    $variables['starttime'] = $node->field_event_date;
+
+    $TZ = "America/Detroit";
+
+    if ($variables['user']->isAuthenticated()) {
+      $TZ = $variables['user']->getTimeZone();
+    }
+
+    $variables['event'] = [
+      'start_date' => $field_start->format('F j, Y', ['timezone' => $TZ]),
+      'end_date'  => $field_end->format('F j, Y', ['timezone' => $TZ]),
+      'start_time' => $field_start->format('g:i A', ['timezone' => $TZ]),
+      'end_time'  => $field_end->format('g:i A', ['timezone' => $TZ]),
+    ];
+  }
+
+}
+*/

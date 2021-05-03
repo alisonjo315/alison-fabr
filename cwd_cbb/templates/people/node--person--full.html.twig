@@ -1,0 +1,81 @@
+{% extends "node.html.twig" %}
+{% block content %}
+<div class="cwd-component cwd-basic cwd-people full flex-grid">
+
+  <div class="flex-8">
+    {% if node.field_person_role.value -%}
+      <p class="intro job-title">{{ node.field_person_role.value }}</p>
+    {% endif %}
+    {% if node.field_person_affiliation.value -%}
+      <p class="affiliation">{{ node.field_person_affiliation.value }}</p>
+    {% endif %}
+
+    {# TO DO: wouldn't it be fun to turn this into a partial/include, with a variable for the blanks -- i.e. "This ____ features... content</a> for this ____." ?!?!?! #}
+    {% if node.field_destination_url.value -%}
+      <div class="field-destination high-margin">
+        <p><strong class="tutorial note">Note:</strong> This person profile features content from another page. <a href="{{ node.field_destination_url.0.url }}">View the featured content</a> for this person.</p>
+      </div>
+    {% endif %}
+
+    {{ node.body|view('full') }}
+    {% if node.field_person_category.value -%}
+      <div class="category double-margin">
+        <hr class="section-break">
+        <h4 class="sr-only">Job Category</h4>
+        {% for term in node.field_person_category -%}
+          <span class="field-emphasize">{{ term.entity.name.value }}</span>
+        {%- endfor %}
+      </div>
+    {%- endif %}
+  </div>
+
+  <div class="flex-4 content-sidebar">
+    {% if node.field_image.0.value -%}
+      {% set image_mid = node.field_image.0.entity.mid.value %}
+      <figure>
+        {{ drupal_entity('media', image_mid, 'medium_sized') }}
+      </figure>
+    {% else -%}
+      <figure><img src="/themes/custom/cwd_base/images/cwd_utilities/photo_placeholder_square.svg" alt=""></figure>
+    {% endif %}
+
+    {% if node.field_job_title.value or node.field_department.value -%}
+      <div class="affiliations-and-roles double-margin">
+        {% if node.field_job_title.value -%}
+          <h2 class="sr-only">Job title</h2>
+          <p class="role third-margin">{{ node.field_job_title.value }}</p>
+        {% endif %}
+        {% if node.field_department.value -%}
+          <h2 class="sr-only">Department</h2>
+          <p class="department">{{ node.field_department.value }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if node.field_email.value or node.field_phone.value or node.field_location.value -%}
+      <h2>Contact</h2>
+      <div class="contact double-margin">
+        {% if node.field_email.value -%}
+          <div class="field-email">
+            {% set email_markup = node.field_email.value %}
+            {% set email_link = "mailto:" ~ node.field_email.value %}
+            {{ link(email_markup|t, email_link) }}
+          </div>
+        {% endif %}
+        {% if node.field_phone.value -%}
+          <div class="field-phone">
+            {%- set phone_string = node.field_phone.value -%}
+            <a class="link-phone" href="tel:+1-{{ phone_string }}">{{ phone_string }}</a>
+          </div>
+        {% endif %}
+        {% if node.field_location.value -%}
+          <div class="field-location">{{- node.field_location.value -}}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+    {% include "@cwd_cbb/partials/incl--er-person.html.twig" with {
+      'members_heading_text': 'Group Members',
+    } %}
+  </div>
+</div>
+{% endblock %}

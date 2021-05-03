@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Theme override for all fields called field_related_links (any etype/bundle).
+ */
+#}
+{%
+  set title_classes = [
+    label_display == 'visually_hidden' ? 'visually-hidden',
+  ]
+%}
+
+{% if label_hidden %}
+  {% if multiple %}
+    <ul class="custom links">
+      {% for item in items %}
+        <li{{ item.attributes }}>{{ item.content }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <ul class="custom links">
+      {% for item in items %}
+        <li{{ item.attributes }}>{{ item.content }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% else %}
+  <div{{ attributes }}>
+    <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
+    {% if multiple %}
+      <ul class="custom links">
+    {% endif %}
+    {% for item in items %}
+      <li{{ item.attributes }}>{{ item.content }}</li>
+    {% endfor %}
+    {% if multiple %}
+      </ul>
+    {% endif %}
+  </div>
+{% endif %}

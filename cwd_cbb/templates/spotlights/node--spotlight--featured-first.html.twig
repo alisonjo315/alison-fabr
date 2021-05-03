@@ -1,0 +1,26 @@
+{% extends "node.html.twig" %}
+{% block title %}{% endblock %}
+{% block content %}
+
+  {%- set destination_url = url -%}
+  {% if node.field_destination_url.value -%}
+    {% set destination_url = node.field_destination_url.0.url %}
+  {%- endif %}
+
+  <div class="card">
+    <div class="group-image">
+      <a href="{{ destination_url }}">
+        <div class="relative">
+          {% include "@cwd_cbb/partials/incl--fc-image.html.twig" %}
+          {% include "@cwd_cbb/partials/incl--spl-badge.html.twig" %}
+        </div>
+        {% include "@cwd_cbb/partials/incl--title.html.twig" %}
+      </a>
+    </div>
+    <div class="group-fields">
+      {% include "@cwd_cbb/partials/incl--spl-supplemental.html.twig" %}
+      {% include "@cwd_cbb/partials/incl--teaser.html.twig" %}
+    </div>
+  </div>
+
+{% endblock %}

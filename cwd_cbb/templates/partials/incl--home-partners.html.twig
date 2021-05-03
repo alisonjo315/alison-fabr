@@ -1,0 +1,11 @@
+{% if is_front and node.body.value -%}
+  {% set body_str = node.body.value %}
+  {%- set body_output = {
+    '#type':   'processed_text',
+    '#text':    body_str,
+    '#format':  node.body.format,
+  } -%}
+  <div class="band accent1 promo-band" role="complementary" aria-label="Additional Information">
+    {{ body_output }}
+  </div>
+{% endif %}

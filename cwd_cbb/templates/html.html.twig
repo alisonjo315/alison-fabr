@@ -1,0 +1,66 @@
+{#
+/**
+ * @file
+ * Theme override for the basic, "outer-most" structure of a single Drupal page.
+ * See cwd_base/html.html.twig for available variables and other info.
+ *
+ * @see template_preprocess_html()
+ */
+#}
+{% set has_sidebar_region = page.sidebar_primary or page.sidebar_secondary or node_type != 'page' ? true : false %}
+{% set has_custom_banner = node.field_banner_image[0].entity.field_media_image.entity.uri.value ? true : false %}
+{% set has_banner_message = node.field_banner_image[0].entity.field_simple_text.value ? true : false %}
+{%
+  set body_classes = [
+    logged_in ? 'user-logged-in',
+    is_error_page ? 'error-page',
+    not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
+    node_type ? 'page-node-type-' ~ node_type|clean_class,
+    db_offline ? 'db-offline',
+    not root_path ? 'home' : 'secondary-page',
+    'cu-seal',
+    'cu-gray',
+    has_sidebar_region ? 'sidebar',
+    has_sidebar_region ? 'sidebar-right',
+    has_sidebar_region ? 'sidebar-tint',
+    (has_sidebar_region and root_path) ? 'sidebar-tint-edge',
+    page.sidebar_primary ? 'has-sidebar-primary' : 'no-sidebar-primary',
+    page.sidebar_secondary ? 'has-sidebar-secondary' : 'no-sidebar-secondary',
+    has_custom_banner ? 'custom-banner',
+    has_banner_message ? 'custom-banner-message'
+  ]
+%}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head-placeholder token="{{ placeholder_token|raw }}">
+  <title>{{ head_title|safe_join(' | ') }}</title>
+  <css-placeholder token="{{ placeholder_token|raw }}">
+  <js-placeholder token="{{ placeholder_token|raw }}">
+</head>
+<body{{ attributes.addClass(body_classes) }}>
+
+  <div id="skipnav"><a href="#main">{{ 'Skip to main content'|t }}</a></div>
+
+  {% include "@cwd_cbb/partials/site-header.html.twig" %}
+
+  {{ page_top }}
+  {{ page }}
+  {{ page_bottom }}
+
+  {% include "@cwd_cbb/partials/site-footer.html.twig" %}
+
+  <js-bottom-placeholder token="{{ placeholder_token|raw }}">
+  <!-- Emergency Banner removed March 2021  -->
+  <!-- <script src="https://embanner.univcomm.cornell.edu/OWC-emergency-banner.js" type="text/javascript" async></script> -->
+  <!-- SiteImprove Analytics -->
+  <script type="text/javascript">
+    (function() {
+      var sz = document.createElement('script'); sz.type = 'text/javascript'; sz.async = true;
+      sz.src = '//siteimproveanalytics.com/js/siteanalyze_6120104.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sz, s);
+    })();
+  </script>
+</body>
+</html>

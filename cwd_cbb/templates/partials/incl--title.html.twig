@@ -1,0 +1,10 @@
+{# TO DO: contribute back to cwd_base (or cwd_project?? wdyt @tone?) #}
+{% set label_output = label %}
+{% if truncate_label -%}
+  {# Max length includes three character ellipsis, if used. #}
+  {% set label_max = label_max|default(73) %}
+  {% set label_output = node.title.0.value|truncate(label_max, true, true) %}
+{% endif %}
+<div class="overlay">
+  <h3><span class="deco">{{- label_output -}}</span></h3>
+</div>

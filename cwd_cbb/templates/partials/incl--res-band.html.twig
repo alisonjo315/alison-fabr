@@ -1,0 +1,47 @@
+{% if node.field_research_band.value and node.field_research_band_heading.value and node.field_research_band_link.value -%}
+  {%- set resband_len = node.field_research_band|length -%}
+  {%- set resband_rowsof = 'max-4' -%}
+  {%- set resband_dark = '' -%}
+  {%- if resband_len is divisible by(3) and resband_len is not divisible by(4) -%}
+    {%- set resband_rowsof = 'max-3-1' -%}
+  {%- endif -%}
+  {%- if is_front -%}
+    {%- set resband_dark = ' dark accent2' -%}
+  {%- endif -%}
+
+  <div class="band padded{{ resband_dark }}" role="complementary" id="research" aria-label="Research Highlights">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="content">
+          <div class="constrain-480">
+            <h2>{{- node.field_research_band_heading.value -}}</h2>
+
+            {% if node.field_research_band_intro.value -%}
+              {% set intro_str = node.field_research_band_intro.value|striptags("<strong><em><sup><sub>") %}
+              {%- set resband_intro = {
+                '#type':   'processed_text',
+                '#text':    intro_str,
+                '#format':  node.field_research_band_intro.format,
+              } -%}
+              <p class="intro">{{- resband_intro -}}</p>
+            {% endif %}
+
+            {% set resband_linkurl = node.field_research_band_link.0.url %}
+            {% set resband_linktext = node.field_research_band_link.0.title %}
+            {{ link(resband_linktext, resband_linkurl, {class: 'link-button'}) }}
+          </div>
+
+          <div class="cwd-component cwd-basic tiles cwd-research {{ resband_rowsof }}">
+            <div class="cards">
+              {%- for fc in node.field_research_band -%}
+                <div class="card">
+                  {{- fc.entity|view('teaser') -}}
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

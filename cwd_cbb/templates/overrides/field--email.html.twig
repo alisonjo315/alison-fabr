@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Theme override for all fields of type "email" (any etype/bundle).
+ * TO DO: maybe add this to cwd_project or cwd_base.......?
+ *
+ * @see field.html.twig
+ *
+ * @ingroup themeable
+ */
+#}
+{%- for item in items -%}
+  {% set email_string = item.content['#context'].value %}
+  <div class="field-email">
+    <a href="mailto:{{ email_string }}"><span class="fa fa-envelope-square"></span><span class="deco">{{ email_string }}</span></a>
+  </div>
+{%- endfor -%}
